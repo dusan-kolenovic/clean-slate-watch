@@ -1,557 +1,431 @@
 <title>Clean Slate Watch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600&display=swap">
 
 <style>
+/* ============================================================
+   Hours design system — colour, type and surface tokens
+   ============================================================ */
 :root{
-  --ground:#FAF7F4;
-  --surface:#FFFFFF;
-  --sunk:#F3EDE8;
-  --ink:#1F2430;
-  --ink-soft:#5E6373;
-  --ink-faint:#8B8F9C;
-  --rule:#E5DCD4;
-  --rule-strong:#D2C5BA;
-  --accent:#F27059;
-  --accent-deep:#BF422A;
-  --accent-wash:#FDEDE8;
-  --good:#2C7A57;
-  --good-wash:#E4F1EA;
-  --warn:#9C6A12;
-  --warn-wash:#FAF0DC;
-  --crit:#B8362B;
-  --crit-wash:#FBE7E4;
-  --code-bg:#211F22;
-  --code-ink:#E7DFD8;
-  --code-dim:#8E8780;
+  --coral:#F27059; --coral-light:#FF8A75; --coral-deep:#D95A3F;
+  --peach:#FFB088; --peach-soft:#FFDCC8; --amber:#F29E4C;
+  --teal:#3DB8B0; --sky:#6BA3E8; --lavender:#9B8FD4; --lavender-light:#B8AEE6;
+  --navy:#1E2A3A; --navy-soft:#2A3548; --navy-deep:#0D1018;
+
+  --surface-page:#F5F3F0;
+  --surface-card:#FFFFFF;
+  --surface-cream:#FFF5EB;
+  --text-strong:rgba(30,42,58,1);
+  --text-body:rgba(30,42,58,.72);
+  --text-muted:rgba(30,42,58,.5);
+  --text-faint:rgba(30,42,58,.35);
+  --border-hairline:rgba(30,42,58,.1);
+  --border-soft:rgba(30,42,58,.06);
+  --chip-fill:rgba(30,42,58,.05);
+
+  --shadow-sm:0 2px 10px rgba(30,42,58,.06);
+  --shadow-md:0 4px 40px rgba(30,42,58,.10), 0 1px 4px rgba(30,42,58,.06);
+  --shadow-glow:0 8px 30px rgba(242,112,89,.22);
+
+  --radius-sm:8px; --radius-md:14px; --radius-lg:18px; --radius-xl:20px; --radius-pill:999px;
+  --ease-calm:cubic-bezier(.22,.61,.36,1);
+  --dur-fast:140ms; --dur-base:240ms; --dur-slow:420ms;
+
+  --gradient-strip:linear-gradient(90deg,var(--peach-soft) 0%,var(--peach) 20%,var(--coral-light) 45%,var(--coral) 65%,var(--lavender) 100%);
+  --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
 }
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --ground:#16171C;
-    --surface:#1D1F26;
-    --sunk:#24262F;
-    --ink:#EFE9E4;
-    --ink-soft:#A5A6B2;
-    --ink-faint:#7C7E8A;
-    --rule:#2F323B;
-    --rule-strong:#414553;
-    --accent:#FF8467;
-    --accent-deep:#FFA994;
-    --accent-wash:#2E211E;
-    --good:#5EBE90;
-    --good-wash:#1B2B24;
-    --warn:#D9A748;
-    --warn-wash:#2C2518;
-    --crit:#EF7D70;
-    --crit-wash:#2E1D1B;
-    --code-bg:#101014;
-    --code-ink:#D9D3CD;
-    --code-dim:#7A756F;
+    --surface-page:#0D1018;
+    --surface-card:#1A2130;
+    --surface-cream:#232B3C;
+    --text-strong:rgba(255,255,255,1);
+    --text-body:rgba(255,255,255,.72);
+    --text-muted:rgba(255,255,255,.5);
+    --text-faint:rgba(255,255,255,.35);
+    --border-hairline:rgba(255,255,255,.12);
+    --border-soft:rgba(255,255,255,.07);
+    --chip-fill:rgba(255,255,255,.07);
+    --shadow-sm:0 2px 10px rgba(0,0,0,.25);
+    --shadow-md:0 4px 40px rgba(0,0,0,.34), 0 1px 4px rgba(0,0,0,.2);
+    --coral:#FF8367;
+    --teal:#4FCFC6; --sky:#82B4F0; --amber:#FFB264; --lavender:#AFA4E4;
   }
 }
 :root[data-theme="dark"]{
-  --ground:#16171C;
-  --surface:#1D1F26;
-  --sunk:#24262F;
-  --ink:#EFE9E4;
-  --ink-soft:#A5A6B2;
-  --ink-faint:#7C7E8A;
-  --rule:#2F323B;
-  --rule-strong:#414553;
-  --accent:#FF8467;
-  --accent-deep:#FFA994;
-  --accent-wash:#2E211E;
-  --good:#5EBE90;
-  --good-wash:#1B2B24;
-  --warn:#D9A748;
-  --warn-wash:#2C2518;
-  --crit:#EF7D70;
-  --crit-wash:#2E1D1B;
-  --code-bg:#101014;
-  --code-ink:#D9D3CD;
-  --code-dim:#7A756F;
+  --surface-page:#0D1018;
+  --surface-card:#1A2130;
+  --surface-cream:#232B3C;
+  --text-strong:rgba(255,255,255,1);
+  --text-body:rgba(255,255,255,.72);
+  --text-muted:rgba(255,255,255,.5);
+  --text-faint:rgba(255,255,255,.35);
+  --border-hairline:rgba(255,255,255,.12);
+  --border-soft:rgba(255,255,255,.07);
+  --chip-fill:rgba(255,255,255,.07);
+  --shadow-sm:0 2px 10px rgba(0,0,0,.25);
+  --shadow-md:0 4px 40px rgba(0,0,0,.34), 0 1px 4px rgba(0,0,0,.2);
+  --coral:#FF8367;
+  --teal:#4FCFC6; --sky:#82B4F0; --amber:#FFB264; --lavender:#AFA4E4;
 }
 
+/* ============================================================
+   Base
+   ============================================================ */
 *{box-sizing:border-box}
 body{
   margin:0;
-  background:var(--ground);
-  color:var(--ink);
-  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:17px;
-  line-height:1.62;
+  background:var(--surface-page);
+  color:var(--text-body);
+  font-family:Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:15px;
+  line-height:1.5;
   -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:1020px;margin:0 auto;padding-inline:24px;padding-block:0 96px}
-p{margin:0 0 1em;max-width:68ch}
-a{color:var(--accent-deep);text-decoration-thickness:1px;text-underline-offset:2px}
-:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
-
-h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;text-wrap:balance;margin:0}
-h1{font-size:clamp(2.1rem,5.4vw,3.15rem);font-weight:700;letter-spacing:-.028em;line-height:1.04}
-h2{font-size:clamp(1.35rem,3vw,1.72rem);font-weight:600;letter-spacing:-.018em;line-height:1.18}
-h3{font-size:1.02rem;font-weight:600;letter-spacing:-.006em}
-
-.eyebrow{
-  font-family:"JetBrains Mono",ui-monospace,monospace;
-  font-size:.66rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;
-  color:var(--ink-faint);
+body::before{
+  content:"";position:fixed;inset:0;background-image:var(--grain);
+  pointer-events:none;z-index:0;
 }
-.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.page{position:relative;z-index:1;max-width:820px;margin:0 auto;padding-inline:24px;padding-block:0 96px}
+h1,h2{margin:0;color:var(--text-strong);font-weight:300;letter-spacing:-.02em;line-height:1.1}
+p{margin:0}
+:focus-visible{outline:none;box-shadow:var(--shadow-glow),0 0 0 2px var(--coral);border-radius:var(--radius-sm)}
 
-/* ---------- masthead ---------- */
-header.mast{
-  border-bottom:2px solid var(--ink);
-  padding-block:44px 22px;
-  margin-bottom:38px;
-}
-.mast-top{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:baseline;margin-bottom:26px}
-.mast h1{margin-bottom:16px}
-.standfirst{font-size:1.16rem;line-height:1.5;color:var(--ink-soft);max-width:60ch;margin:0}
-.mast-meta{
-  display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:24px;
-  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.74rem;color:var(--ink-faint);
-}
-.mast-meta b{color:var(--ink-soft);font-weight:600}
+.strip{height:4px;background:var(--gradient-strip);border-radius:0 0 var(--radius-pill) var(--radius-pill)}
 
-/* ---------- verdict ---------- */
-.verdict{
-  background:var(--surface);
-  border:1px solid var(--rule);
-  border-left:4px solid var(--accent);
-  padding:26px 28px;
-  margin-bottom:56px;
-}
-.verdict h2{margin-bottom:14px}
-.verdict p{margin-bottom:.7em}
-.verdict p:last-child{margin-bottom:0}
+.eyebrow{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
 
-/* ---------- sections ---------- */
-section{margin-bottom:58px}
-.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
-.sec-head .eyebrow{flex:none}
-.sec-rule{flex:1;height:1px;background:var(--rule);transform:translateY(-3px)}
-section > h2{margin-bottom:18px}
+/* ============================================================
+   Masthead
+   ============================================================ */
+.mast{padding-block:56px 0}
+.mast h1{font-size:clamp(38px,6vw,54px);margin:14px 0 18px}
+.mast .lede{font-size:17px;color:var(--text-body);max-width:52ch}
 
-/* ---------- evidence / code ---------- */
-.evidence{
-  background:var(--code-bg);
-  border-radius:3px;
-  padding:20px 22px;
-  overflow-x:auto;
-  margin:0 0 14px;
+/* ============================================================
+   Filters
+   ============================================================ */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:40px 0 0;align-items:center}
+.filters .label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-right:4px}
+.chip{
+  font-family:inherit;font-size:13px;font-weight:500;color:var(--text-body);
+  background:var(--chip-fill);border:1px solid transparent;border-radius:var(--radius-pill);
+  padding:6px 14px;cursor:pointer;
+  transition:background var(--dur-fast) var(--ease-calm),color var(--dur-fast) var(--ease-calm),border-color var(--dur-fast) var(--ease-calm);
 }
-.evidence pre{
-  margin:0;
-  font-family:"JetBrains Mono",ui-monospace,monospace;
-  font-size:.78rem;line-height:1.72;color:var(--code-ink);
-  white-space:pre;
-}
-.evidence .c{color:var(--code-dim)}
-.evidence .ok{color:#7FCFA3}
-.evidence .hot{color:#FF9478}
-.evidence .cmd{color:#9FC4F0}
-.caption{font-size:.85rem;color:var(--ink-faint);margin:0 0 0;max-width:68ch}
+.chip:hover{border-color:var(--border-hairline)}
+.chip[aria-pressed="true"]{background:var(--coral);color:#fff;border-color:transparent}
+.chip.quiet[aria-pressed="true"]{background:var(--text-strong);color:var(--surface-card)}
 
-/* ---------- source table ---------- */
-.tablebox{overflow-x:auto;border:1px solid var(--rule);background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:660px;font-size:.92rem}
-th{
-  text-align:left;font-family:"JetBrains Mono",ui-monospace,monospace;
-  font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
-  color:var(--ink-faint);padding:12px 16px;border-bottom:1px solid var(--rule-strong);
-  white-space:nowrap;vertical-align:bottom;
-}
-td{padding:14px 16px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.48}
-tbody tr:last-child td{border-bottom:none}
-td.src{font-weight:600;line-height:1.35}
-td.src small{display:block;font-weight:400;color:var(--ink-faint);font-size:.8rem;margin-top:3px}
-td.note{color:var(--ink-soft);font-size:.88rem;max-width:34ch}
-.grade{
-  display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;
-  font-size:.74rem;font-weight:600;padding:2px 8px;border-radius:2px;white-space:nowrap;
-}
-.g-a{background:var(--good-wash);color:var(--good)}
-.g-b{background:var(--warn-wash);color:var(--warn)}
-.g-c{background:var(--crit-wash);color:var(--crit)}
-.g-n{background:var(--sunk);color:var(--ink-faint)}
-.tier-label{
-  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.66rem;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--ink-faint);background:var(--sunk);
-  padding:9px 16px;border-bottom:1px solid var(--rule);
-}
+.tally{font-size:14px;color:var(--text-muted);margin:24px 0 18px}
+.tally b{color:var(--text-strong);font-weight:600}
 
-/* ---------- findings ---------- */
-.findings{display:grid;gap:2px;background:var(--rule);border:1px solid var(--rule)}
-.finding{background:var(--surface);padding:22px 24px;display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:start}
-.finding .n{
-  font-family:Archivo,sans-serif;font-size:1.5rem;font-weight:700;color:var(--accent);
-  line-height:1;padding-top:2px;font-variant-numeric:tabular-nums;
+/* ============================================================
+   Feed
+   ============================================================ */
+.feed{display:flex;flex-direction:column;gap:14px;list-style:none;padding:0;margin:0}
+.item{
+  background:var(--surface-card);border:1px solid var(--border-soft);
+  border-radius:var(--radius-xl);padding:26px 28px;box-shadow:var(--shadow-sm);
+  transition:box-shadow var(--dur-base) var(--ease-calm),opacity var(--dur-base) var(--ease-calm);
 }
-.finding h3{margin-bottom:6px}
-.finding .body{grid-column:2}
-.finding p{margin:0 0 .6em;font-size:.96rem;color:var(--ink-soft)}
-.finding p:last-child{margin-bottom:0}
-.finding p b{color:var(--ink)}
-.finding .fix{
-  margin-top:10px;padding-left:12px;border-left:2px solid var(--accent);
-  font-size:.9rem;color:var(--ink);
+.item:hover{box-shadow:var(--shadow-md)}
+.item.read{opacity:.5}
+@media (prefers-reduced-motion:no-preference){
+  .item.fresh{animation:rise var(--dur-slow) var(--ease-calm) both}
 }
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ---------- timeline rail ---------- */
-.rail{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
-  border:1px solid var(--rule);background:var(--surface);margin-bottom:14px;
+.item-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:14px}
+.urg{width:7px;height:7px;border-radius:var(--radius-pill);flex:none}
+.urg-now{background:var(--coral)}
+.urg-soon{background:var(--amber)}
+.urg-watch{background:var(--sky)}
+.urg-eased{background:var(--teal)}
+.state{
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text-strong);background:var(--chip-fill);
+  padding:4px 11px;border-radius:var(--radius-pill);
 }
-.stop{padding:20px 18px;border-right:1px solid var(--rule);position:relative}
-.stop:last-child{border-right:none}
-.stop::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--rule-strong)}
-.stop.done::before{background:var(--ink-soft)}
-.stop.live::before{background:var(--accent)}
-.stop .when{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.76rem;font-weight:600;color:var(--ink);display:block;margin-bottom:7px}
-.stop .what{font-size:.87rem;color:var(--ink-soft);line-height:1.45;display:block}
-.stop .tag{
-  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.6rem;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:9px;
+.when{font-size:13px;color:var(--text-faint);font-variant-numeric:tabular-nums}
+
+.item h2{font-size:22px;line-height:1.24;margin-bottom:10px}
+.item h2 a{color:inherit;text-decoration:none}
+.item h2 a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.item .brief{font-size:15px;color:var(--text-body);max-width:64ch}
+
+.item-foot{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;
+  margin-top:20px;padding-top:16px;border-top:1px solid var(--border-soft);
 }
-.stop.live .tag{color:var(--accent-deep)}
+.src{font-size:13px;color:var(--text-muted)}
+.src a{color:var(--text-body);text-underline-offset:2px}
+.item-foot .spacer{flex:1 1 auto;min-width:0}
 
-/* ---------- pilot cards ---------- */
-.pilots{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
-.pilot{background:var(--surface);padding:20px 20px 22px}
-.pilot .st{font-family:Archivo,sans-serif;font-size:1.22rem;font-weight:700;letter-spacing:-.02em;margin-bottom:3px}
-.pilot .role{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:12px}
-.pilot p{font-size:.9rem;color:var(--ink-soft);margin:0 0 .55em;max-width:none}
-.pilot p:last-child{margin-bottom:0}
-.pilot .feed{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;color:var(--ink-faint);margin-top:12px;display:block;line-height:1.5}
-
-/* ---------- phase 2 steps ---------- */
-.layers{display:grid;gap:14px;margin-bottom:22px}
-.layer{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:start;padding-bottom:14px;border-bottom:1px solid var(--rule)}
-.layer:last-child{border-bottom:none;padding-bottom:0}
-.layer .ln{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);padding-top:5px}
-.layer h3{margin-bottom:5px}
-.layer p{font-size:.94rem;color:var(--ink-soft);margin:0;max-width:62ch}
-
-.asks{list-style:none;padding:0;margin:0;display:grid;gap:11px}
-.asks li{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:start;font-size:.97rem}
-.asks .box{
-  width:15px;height:15px;border:1.5px solid var(--rule-strong);border-radius:2px;margin-top:5px;flex:none;
+.mark{display:inline-flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);user-select:none}
+.mark:hover{color:var(--text-strong)}
+.mark input{position:absolute;opacity:0;width:0;height:0}
+.mark .box{
+  width:18px;height:18px;border-radius:6px;border:1.5px solid var(--border-hairline);
+  background:transparent;flex:none;display:grid;place-items:center;
+  transition:background var(--dur-fast) var(--ease-calm),border-color var(--dur-fast) var(--ease-calm);
 }
-.asks b{font-weight:600}
-.asks span.q{color:var(--ink-soft)}
+.mark .box svg{width:11px;height:11px;opacity:0;color:#fff;transition:opacity var(--dur-fast) var(--ease-calm)}
+.mark input:checked + .box{background:var(--coral);border-color:var(--coral)}
+.mark input:checked + .box svg{opacity:1}
+.mark input:focus-visible + .box{box-shadow:var(--shadow-glow),0 0 0 2px var(--coral)}
 
-footer{border-top:1px solid var(--rule);padding-top:20px;font-size:.82rem;color:var(--ink-faint);max-width:68ch}
-footer a{color:var(--ink-soft)}
+/* ============================================================
+   Rest states
+   ============================================================ */
+.rest{
+  background:var(--surface-cream);border:1px solid var(--border-soft);
+  border-radius:var(--radius-xl);padding:48px 32px;text-align:center;
+}
+.rest h2{font-size:24px;margin-bottom:10px}
+.rest p{color:var(--text-body);max-width:46ch;margin:0 auto}
+.skel{background:var(--surface-card);border:1px solid var(--border-soft);border-radius:var(--radius-xl);padding:26px 28px;box-shadow:var(--shadow-sm)}
+.skel .bar{height:11px;border-radius:var(--radius-pill);background:var(--chip-fill);margin-bottom:12px}
+@media (prefers-reduced-motion:no-preference){.skel .bar{animation:pulse 1.9s var(--ease-calm) infinite}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
-@media (max-width:720px){
-  body{font-size:16px}
-  .rail{grid-template-columns:1fr}
-  .stop{border-right:none;border-bottom:1px solid var(--rule)}
-  .stop:last-child{border-bottom:none}
-  .stop::before{height:3px}
-  .layer{grid-template-columns:1fr;gap:4px}
-  .finding{grid-template-columns:1fr}
-  .finding .n{font-size:1.1rem;padding-top:0}
-  .finding .body{grid-column:1}
+@media (max-width:600px){
+  .page{padding-inline:18px}
+  .mast{padding-block:40px 0}
+  .item{padding:22px 20px}
+  .item h2{font-size:20px}
 }
 </style>
 
-<div class="wrap">
+<div class="strip"></div>
+<div class="page">
 
-<header class="mast">
-  <div class="mast-top">
-    <span class="eyebrow">Feasibility study &middot; Phase 1</span>
-    <span class="eyebrow">Internal &middot; Not for distribution</span>
-  </div>
-  <h1>Clean Slate Watch</h1>
-  <p class="standfirst">Can we build a single source of truth for state record-sealing laws that shrink the pool of criminal records we can sell? I spent today testing the actual sources. Here is what holds up and what does not.</p>
-  <div class="mast-meta">
-    <span><b>Prepared for</b> HireRight product &amp; compliance</span>
-    <span><b>Date</b> 14 September 2026</span>
-    <span><b>Scope</b> Source validation only &mdash; no system built yet</span>
-  </div>
-</header>
+  <header class="mast">
+    <span class="eyebrow">Clean slate watch</span>
+    <h1>News feed</h1>
+    <p class="lede">The most recent developments in clean slate legislation.</p>
+  </header>
 
-<div class="verdict">
-  <span class="eyebrow">Verdict</span>
-  <h2>Feasible. The hard part is not getting the data.</h2>
-  <p>Every US state publishes its own bill activity, and at least one state &mdash; Virginia &mdash; publishes it as an hourly-refreshed CSV with no API key, no login and no scraping. I pulled all 3,646 bills from Virginia's 2026 session this afternoon and found the one that matters in about four seconds.</p>
-  <p>The hard part is <b>filtering and trusting</b>. My first keyword filter ranked a DMV data-sharing bill above everything else and missed the single enacted law that moves Virginia's sealing dates. And Virginia's own published status flags said zero bills passed in 2025, which is false. Both problems are solvable, but they are the actual engineering work &mdash; not the collection.</p>
-  <p>No existing product does this from HireRight's angle. The trackers that exist watch <i>bills</i>. We need to watch <b>when records physically leave the pool</b>, which is a different and later event.</p>
-  <p><b>And none of it needs an account.</b> Every source on the critical path below is open &mdash; including a 10.2&nbsp;GB public-domain database of all 50 states' legislation that I verified downloading today. Phase 2 can be built and run without signing up for, procuring or paying for anything.</p>
+  <div class="filters" id="urgencyFilters" role="group" aria-label="Filter by urgency"></div>
+
+  <p class="tally" id="tally"></p>
+
+  <div id="feed">
+    <div class="skel">
+      <div class="bar" style="width:22%"></div>
+      <div class="bar" style="width:74%;height:18px"></div>
+      <div class="bar" style="width:92%"></div>
+      <div class="bar" style="width:58%;margin-bottom:0"></div>
+    </div>
+  </div>
+
 </div>
 
-<section>
-  <div class="sec-head"><span class="eyebrow">Evidence</span><span class="sec-rule"></span></div>
-  <h2>What I proved live today</h2>
-  <p>Three things needed testing: does open data exist, is it current, and does it carry the events we care about. All three, yes. This is real output, run today, unedited.</p>
+<script>
+(function () {
+  "use strict";
 
-  <div class="evidence"><pre><span class="c"># Virginia legislature bulk data — no key, no login, no scraping</span>
-<span class="cmd">$</span> curl https://lis.blob.core.windows.net/lisfiles/20261/BILLS.CSV
-  <span class="ok">http=200</span>  size=1,331,320 bytes  <span class="c">→ 3,646 bills, 2026 regular session</span>
+  var URGENCY = {
+    now:   { label: "Live now",  cls: "urg-now" },
+    soon:  { label: "Coming up", cls: "urg-soon" },
+    watch: { label: "Watching",  cls: "urg-watch" },
+    eased: { label: "Eased off", cls: "urg-eased" }
+  };
 
-<span class="c"># concept screen across all 3,646 bills → 4 candidates</span>
-  <span class="hot">SB230</span>   <span class="ok">ENACTED CHAP1127</span>  Police and court records; expungement of
-                             records, <span class="hot">delayed effective date</span>.
-  HB1029  died/pending      Criminal complaint, warrant, summons; temporary sealing.
-  HB687   died/pending      Criminal complaint, warrant, summons; temporary sealing.
-  HB1226  ENACTED CHAP0274  Motor Vehicles; release of data <span class="c">(false positive)</span>
+  var el = {
+    feed: document.getElementById("feed"),
+    tally: document.getElementById("tally"),
+    filters: document.getElementById("urgencyFilters")
+  };
 
-<span class="c"># cross-check the prior session against the authoritative history file</span>
-  HB2723  4/2/2025  H Enacted, <span class="ok">Chapter 671</span> (Effective - see bill)
-  SB1466  4/2/2025  H Enacted, <span class="ok">Chapter 634</span> (Effective - see bill)</pre></div>
-  <p class="caption">Virginia LIS bulk files, retrieved 14 Sep 2026. <span class="mono">20261</span> is Virginia's code for the 2026 regular session; files refresh hourly while the legislature sits.</p>
-</section>
+  var items = [];
+  var seenIds = null;
+  var freshIds = {};
+  var filterUrgency = "all";
+  var showRead = false;
+  var col = null;
 
-<section>
-  <div class="sec-head"><span class="eyebrow">Why SB230 matters</span><span class="sec-rule"></span></div>
-  <h2>One bill, three dates, a measurable hole in the record pool</h2>
-  <p>SB230 is exactly the signal we need and exactly the one a bill tracker would under-rate. It is not a new clean slate law. It is a law that <b>moves the dates</b> on an existing one &mdash; and the dates are when records stop being available to us.</p>
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
 
-  <div class="rail">
-    <div class="stop done">
-      <span class="tag">Enacted</span>
-      <span class="when">14 May 2026</span>
-      <span class="what">SB230 signed, Chapter 1127. Amends the sealing schedule.</span>
-    </div>
-    <div class="stop live">
-      <span class="tag">Live now</span>
-      <span class="when">1 Jul 2026</span>
-      <span class="what">First conviction records sealable in Virginia's history. Automatic sealing begins.</span>
-    </div>
-    <div class="stop">
-      <span class="tag">Next</span>
-      <span class="when">1 Oct 2026</span>
-      <span class="what">Automatic sealing widens: petit larceny, concealment, disorderly conduct, certain trespass, marijuana PWID.</span>
-    </div>
-    <div class="stop">
-      <span class="tag">Then</span>
-      <span class="when">1 Dec 2026</span>
-      <span class="what">Petition eligibility broadens; &ldquo;otherwise dismissed&rdquo; language repealed.</span>
-    </div>
-  </div>
-  <p class="caption">Staged dates per Virginia's 2026 enactments. Each stop is a step change in what a Virginia search can return &mdash; and 1 October is eleven weekends away.</p>
-</section>
+  function safeUrl(u) {
+    if (!u) return null;
+    try {
+      var p = new URL(String(u));
+      return (p.protocol === "https:" || p.protocol === "http:") ? p.href : null;
+    } catch (e) { return null; }
+  }
 
-<section>
-  <div class="sec-head"><span class="eyebrow">Source map</span><span class="sec-rule"></span></div>
-  <h2>Which sources are actually good</h2>
-  <p>I tested each of these by hand today. Grades reflect what I could verify, not reputation. Anything graded <span class="mono">C</span> should not sit on the critical path.</p>
+  function prettyDate(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return String(iso || "");
+    return d.toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" });
+  }
 
-  <div class="tablebox">
-    <table>
-      <thead>
-        <tr><th>Source</th><th>Grade</th><th>Access</th><th>Latency</th><th>What it gives us</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="tier-label" colspan="5">Tier 1 &mdash; primary, machine-readable, authoritative</td></tr>
-        <tr>
-          <td class="src">Virginia LIS bulk CSV<small>lis.blob.core.windows.net</small></td>
-          <td><span class="grade g-a">A</span></td>
-          <td class="mono">open, no key</td>
-          <td class="mono">hourly</td>
-          <td class="note">Every bill, full action history, chapter numbers. Verified working. The model for what good looks like.</td>
-        </tr>
-        <tr>
-          <td class="src">State legislature feeds<small>per-state, 50 different shapes</small></td>
-          <td><span class="grade g-b">B&ndash;</span></td>
-          <td class="mono">varies wildly</td>
-          <td class="mono">hourly&ndash;daily</td>
-          <td class="note">Authoritative everywhere, but Michigan, Illinois, New York and Missouri all refused or timed out on me today. Needs per-state work.</td>
-        </tr>
-        <tr>
-          <td class="src">State court / AOC notices<small>vacourts.gov and equivalents</small></td>
-          <td><span class="grade g-b">B</span></td>
-          <td class="mono">HTML only</td>
-          <td class="mono">ad hoc</td>
-          <td class="note">The only place that says whether sealing is <i>actually running</i>. No feeds. Highest-value, lowest-structure tier.</td>
-        </tr>
+  function buildFilters() {
+    var html = '<span class="label">Urgency</span>';
+    html += '<button class="chip" type="button" data-urg="all" aria-pressed="' + (filterUrgency === "all") + '">Everything</button>';
+    Object.keys(URGENCY).forEach(function (k) {
+      var n = items.filter(function (i) { return i.severity === k; }).length;
+      if (!n) return;
+      html += '<button class="chip" type="button" data-urg="' + k + '" aria-pressed="' +
+        (filterUrgency === k) + '">' + esc(URGENCY[k].label) + " " + n + "</button>";
+    });
+    var nRead = items.filter(function (i) { return i.status === "read"; }).length;
+    if (nRead) {
+      html += '<button class="chip quiet" type="button" data-showread="1" aria-pressed="' + showRead +
+        '">Show read ' + nRead + "</button>";
+    }
+    el.filters.innerHTML = html;
+  }
 
-        <tr><td class="tier-label" colspan="5">Tier 2 &mdash; aggregators, 50-state coverage, key required</td></tr>
-        <tr>
-          <td class="src">LegiScan API<small>legiscan.com</small></td>
-          <td><span class="grade g-b">B+</span></td>
-          <td class="mono">free key, 30k/mo</td>
-          <td class="mono">~daily</td>
-          <td class="note"><b>Optional, not required.</b> Its daily change-hash is the one thing nothing else gives us. But it needs an account, and the signup wall stopped us on 14 Sep. Revisit only if per-bill daily deltas across 50 states prove necessary.</td>
-        </tr>
-        <tr>
-          <td class="src">Open States bulk database<small>data.openstates.org/postgres/monthly</small></td>
-          <td><span class="grade g-a">A&ndash;</span></td>
-          <td class="mono">open, no key</td>
-          <td class="mono">monthly</td>
-          <td class="note">The whole of US state legislation &mdash; all 50 states, bills, actions, sponsors, votes &mdash; as a 10.2&nbsp;GB Postgres dump, public domain, no account. Verified downloading today. Solves Illinois, Michigan and Texas in one move. Monthly refresh is its only weakness.</td>
-        </tr>
-        <tr>
-          <td class="src">Open States API v3<small>v3.openstates.org</small></td>
-          <td><span class="grade g-b">B</span></td>
-          <td class="mono">free key</td>
-          <td class="mono">~daily</td>
-          <td class="note">56 jurisdictions, clean JSON, responded correctly. Good fallback and good cross-check against LegiScan.</td>
-        </tr>
+  function visible() {
+    return items.filter(function (i) {
+      if (!showRead && i.status === "read") return false;
+      if (filterUrgency !== "all" && i.severity !== filterUrgency) return false;
+      return true;
+    });
+  }
 
-        <tr><td class="tier-label" colspan="5">Tier 3 &mdash; expert interpretation, tells us what a bill <em>means</em></td></tr>
-        <tr>
-          <td class="src">Collateral Consequences Resource Center<small>ccresourcecenter.org/feed</small></td>
-          <td><span class="grade g-a">A&ndash;</span></td>
-          <td class="mono">open RSS</td>
-          <td class="mono">irregular</td>
-          <td class="note">Best legal analysis available, and machine-readable. Caught Missouri's passage and Maine's veto. Risk: it went quiet Jan&ndash;Apr 2026 and returned with a post titled &ldquo;CCRC is back in action.&rdquo; Small team, single point of failure.</td>
-        </tr>
-        <tr>
-          <td class="src">Clean Slate Initiative<small>cleanslateinitiative.org</small></td>
-          <td><span class="grade g-b">B&ndash;</span></td>
-          <td class="mono">HTML + newsletter</td>
-          <td class="mono">weeks</td>
-          <td class="note">Authoritative on campaign momentum &mdash; which state is next. No API, no dataset. Also an advocate: its state list is scored against &ldquo;our criteria,&rdquo; not a legal test.</td>
-        </tr>
-        <tr>
-          <td class="src">PBSA Government Relations<small>thepbsa.org</small></td>
-          <td><span class="grade g-b">B</span></td>
-          <td class="mono">member login</td>
-          <td class="mono">monthly</td>
-          <td class="note">The only source framed from our side of the table. HireRight is already a member &mdash; this is a credential we have, not a purchase.</td>
-        </tr>
+  function render() {
+    buildFilters();
+    var list = visible();
+    var unread = items.filter(function (i) { return i.status !== "read"; }).length;
 
-        <tr><td class="tier-label" colspan="5">Tier 4 &mdash; early warning and implementation reality</td></tr>
-        <tr>
-          <td class="src">Google News RSS<small>topic query, keyless</small></td>
-          <td><span class="grade g-b">B</span></td>
-          <td class="mono">open RSS</td>
-          <td class="mono">minutes</td>
-          <td class="note">100 items on my test query. Surfaced Michigan clearing ~1.6M records and Delaware's rollout stalling &mdash; neither of which appears in any bill feed. Noisy, but it is the only tier that reports implementation.</td>
-        </tr>
-        <tr>
-          <td class="src">NCSL criminal justice database<small>ncsl.org</small></td>
-          <td><span class="grade g-c">C</span></td>
-          <td class="mono">blocked (403)</td>
-          <td class="mono">&mdash;</td>
-          <td class="note">Refused automated access today. Useful to a human analyst, not to a pipeline.</td>
-        </tr>
-        <tr>
-          <td class="src">Competitor compliance blogs<small>Checkr, Accurate, Asurint</small></td>
-          <td><span class="grade g-n">ref</span></td>
-          <td class="mono">open</td>
-          <td class="mono">weeks</td>
-          <td class="note">Not a source &mdash; a benchmark. They all publish clean slate explainers already, which tells us the gap we are filling is internal intelligence, not market education.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+    el.tally.innerHTML = items.length
+      ? "<b>" + items.length + "</b> development" + (items.length === 1 ? "" : "s") +
+        " tracked. <b>" + unread + "</b> unread."
+      : "";
 
-<section>
-  <div class="sec-head"><span class="eyebrow">Problems found</span><span class="sec-rule"></span></div>
-  <h2>Three things that will break this if we ignore them</h2>
+    if (!items.length) {
+      el.feed.innerHTML = '<div class="rest"><h2>Nothing yet</h2>' +
+        "<p>When a state moves on record sealing, it appears here. You can leave this page open.</p></div>";
+      return;
+    }
+    if (!list.length) {
+      el.feed.innerHTML = '<div class="rest"><h2>Nothing matches that</h2>' +
+        "<p>Widen the filter above to see the rest of the feed.</p></div>";
+      return;
+    }
 
-  <div class="findings">
-    <div class="finding">
-      <span class="n">01</span>
-      <div class="body">
-        <h3>Keyword matching fails in both directions</h3>
-        <p>My first filter returned three hits from 3,646 bills. Top-ranked was a <b>Department of Motor Vehicles data-release bill</b>. It missed SB230 &mdash; the only enacted law in the set &mdash; because the phrase was &ldquo;court records&rdquo; and my pattern expected &ldquo;court record.&rdquo;</p>
-        <p>The vocabulary is genuinely slippery: <i>seal, expunge, set aside, vacatur, nondisclosure, record relief</i>, plus &ldquo;sealed bids&rdquo; and &ldquo;diploma seal&rdquo; as decoys.</p>
-        <div class="fix">Fix: retrieve broadly with loose patterns, then have a model read each candidate and answer one question &mdash; does this change which records we can report, and from when? Roughly 4 candidates per state per session reach a model. That is cents, not dollars.</div>
-      </div>
-    </div>
-    <div class="finding">
-      <span class="n">02</span>
-      <div class="body">
-        <h3>The official status flags are wrong</h3>
-        <p>Virginia's own <span class="mono">BILLS.CSV</span> for the 2025 session flags <b>zero of 3,510 bills as approved</b>. Two of them &mdash; HB2723 and SB1466 &mdash; became Chapters 671 and 634 on 2 April 2025. Both are record-sealing laws. Both would have been silently dropped.</p>
-        <p>The separate history file has it right. A pipeline that trusts the convenient summary column would have reported &ldquo;no activity&rdquo; during the exact session Virginia reformed its expungement law.</p>
-        <div class="fix">Fix: derive status from the action history, never from a summary flag. Alert when a source's own two files disagree &mdash; that disagreement is itself a signal.</div>
-      </div>
-    </div>
-    <div class="finding">
-      <span class="n">03</span>
-      <div class="body">
-        <h3>Passage is not the event we care about</h3>
-        <p>A law passing costs us nothing on the day it passes. We lose records when a court system actually seals them &mdash; often years later, sometimes never. New York's law took effect in November 2024 with courts given until <b>November 2027</b> to finish the plumbing. Delaware's rollout is publicly stalled. Michigan, four years in, has cleared roughly 1.6 million records.</p>
-        <p>Bill trackers stop at enactment. That is the wrong stopping point for a revenue model.</p>
-        <div class="fix">Fix: every tracked law carries a second lifecycle &mdash; enacted → effective → implemented → records observably absent. The last step is measurable against our own search returns.</div>
-      </div>
-    </div>
-  </div>
-</section>
+    var html = '<ul class="feed">';
+    list.forEach(function (i) {
+      var urg = URGENCY[i.severity] || URGENCY.watch;
+      var url = safeUrl(i.sourceUrl);
+      var isRead = i.status === "read";
+      var boxId = "read-" + i.id;
 
-<section>
-  <div class="sec-head"><span class="eyebrow">Recommendation</span><span class="sec-rule"></span></div>
-  <h2>Four states for the prototype</h2>
-  <p>Chosen to cover each distinct situation once, so we learn four different things rather than the same thing four times.</p>
-  <div class="pilots">
-    <div class="pilot">
-      <div class="st">Virginia</div>
-      <div class="role">Proven &middot; happening now</div>
-      <p>Pipeline already works end to end. Two more step changes land 1 Oct and 1 Dec 2026 &mdash; we can measure the record pool before and after.</p>
-      <span class="feed">bulk CSV, hourly, no key</span>
-    </div>
-    <div class="pilot">
-      <div class="st">Illinois</div>
-      <div class="role">Broadest law</div>
-      <p>Enacted Nov 2025 and described as the widest automatic sealing law in the country. Largest single exposure in the set.</p>
-      <span class="feed">site refused &mdash; covered by bulk dump</span>
-    </div>
-    <div class="pilot">
-      <div class="st">Michigan</div>
-      <div class="role">The end state</div>
-      <p>Four years in, ~1.6M records cleared. Tells us what mature clean slate does to volume &mdash; the number we actually need for forecasting.</p>
-      <span class="feed">403 &mdash; covered by bulk dump</span>
-    </div>
-    <div class="pilot">
-      <div class="st">Texas</div>
-      <div class="role">Largest at risk</div>
-      <p>No law yet, active campaign. Biennial legislature means the next window is the 2027 regular session &mdash; predictable, and worth watching early.</p>
-      <span class="feed">open, partial</span>
-    </div>
-  </div>
-</section>
+      html += '<li class="item' + (isRead ? " read" : "") + (freshIds[i.id] ? " fresh" : "") + '">' +
+        '<div class="item-top">' +
+          '<span class="urg ' + urg.cls + '" title="' + esc(urg.label) + '"></span>' +
+          '<span class="state">' + esc(i.state) + "</span>" +
+          '<span class="when">' + esc(prettyDate(i.date)) + "</span>" +
+        "</div>" +
+        "<h2><a href=\"" + esc(url) + "\" target=\"_blank\" rel=\"noopener noreferrer\">" + esc(i.title) + "</a></h2>" +
+        '<p class="brief">' + esc(i.summary) + "</p>" +
+        '<div class="item-foot">' +
+          '<span class="src"><a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(i.source) + "</a></span>" +
+          '<span class="spacer"></span>' +
+          '<label class="mark" for="' + esc(boxId) + '">' +
+            '<input type="checkbox" id="' + esc(boxId) + '" data-mark="' + esc(i.id) + '"' + (isRead ? " checked" : "") + ">" +
+            '<span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span>' +
+            "<span>Mark as read</span>" +
+          "</label>" +
+        "</div>" +
+      "</li>";
+    });
+    html += "</ul>";
+    el.feed.innerHTML = html;
+    freshIds = {};
+  }
 
-<section>
-  <div class="sec-head"><span class="eyebrow">Phase 2</span><span class="sec-rule"></span></div>
-  <h2>What I would build, and how long</h2>
-  <p>Three layers, one daily run, one place to look &mdash; built entirely on open sources. Estimate assumes the four states above and no integration into existing HireRight systems.</p>
-  <div class="layers">
-    <div class="layer">
-      <div class="ln">Layer 1 &middot; Collect</div>
-      <div>
-        <h3>Pull, don't scrape</h3>
-        <p>Virginia's hourly CSV direct. Illinois, Michigan and Texas from the Open States bulk database. CCRC and Google News RSS alongside, covering anything breaking in the other 46. No keys, no accounts, no scraping. Every fetch records its own health, so a source going quiet raises a flag instead of passing for calm.</p>
-      </div>
-    </div>
-    <div class="layer">
-      <div class="ln">Layer 2 &middot; Classify</div>
-      <div>
-        <h3>A model reads the shortlist</h3>
-        <p>Loose patterns cut thousands of bills to a handful; a model reads those and returns structured fields &mdash; scope, automatic or petition, effective dates, retroactive or not, and whether it obliges us to delete records we already hold. Anything uncertain goes to a human queue rather than being guessed.</p>
-      </div>
-    </div>
-    <div class="layer">
-      <div class="ln">Layer 3 &middot; Notify</div>
-      <div>
-        <h3>A digest and a board</h3>
-        <p>One daily message with only what changed, graded by how soon it bites. Behind it, a standing board of every tracked law and where it sits in its lifecycle &mdash; the single source of truth. Silence on a quiet day, not a daily wall of noise.</p>
-      </div>
-    </div>
-  </div>
-  <p><b>Estimate:</b> four days to a working prototype covering the four states, running daily, posting a digest. Add two days if Illinois and Michigan need per-state handling rather than an aggregator.</p>
-</section>
+  document.addEventListener("change", function (ev) {
+    var box = ev.target;
+    if (!box.dataset || !box.dataset.mark) return;
+    var id = box.dataset.mark;
+    var it = items.filter(function (x) { return x.id === id; })[0];
+    if (!it) return;
+    var next = box.checked ? "read" : "open";
+    it.status = next;
+    render();
+    if (col) {
+      col.doc(id).update({ status: next }).catch(function () {
+        it.status = next === "read" ? "open" : "read";
+        render();
+      });
+    }
+  });
 
-<section>
-  <div class="sec-head"><span class="eyebrow">Open</span><span class="sec-rule"></span></div>
-  <h2>Three decisions and one question</h2>
-  <ul class="asks">
-    <li><span class="box"></span><span><b>How fresh does it need to be?</b> <span class="q">The open stack gives news within minutes and structured data monthly. Structured <i>daily</i> deltas across all 50 states is the one thing only an account-gated tracker sells. My read: we don't need it yet.</span></span></li>
-    <li><span class="box"></span><span><b>Where the alert lands.</b> <span class="q">Slack channel, email digest, or a Confluence page. This decides the last layer and nothing else.</span></span></li>
-    <li><span class="box"></span><span><b>Who reads the uncertain queue.</b> <span class="q">The model will hand back roughly one ambiguous item a week. Without a named owner it silently becomes a backlog.</span></span></li>
-    <li><span class="box"></span><span><b>PBSA login.</b> <span class="q">We are already members. Their legislative centre is the one source written from our perspective, and I could not see it today.</span></span></li>
-  </ul>
-</section>
+  document.addEventListener("click", function (ev) {
+    var t = ev.target.closest("button");
+    if (!t) return;
+    if (t.dataset.urg) { filterUrgency = t.dataset.urg; render(); return; }
+    if (t.dataset.showread) { showRead = !showRead; render(); }
+  });
 
-<footer>
-  <p>All source tests run 14 September 2026 from a single machine; HTTP failures may reflect this network as much as the source, and every one is worth a second attempt from HireRight infrastructure before we write a source off. Bill outcomes above are from primary state records. State counts and effective dates outside Virginia come from secondary reporting and should be confirmed against the state's own record before anything commercial rests on them.</p>
-</footer>
+  function absorb(snap) {
+    var next = [];
+    snap.docs.forEach(function (d) {
+      var b = d.data() || {};
+      if (!safeUrl(b.sourceUrl)) return;   // every item on the feed carries a link
+      next.push({
+        id: d.id, state: b.state, title: b.title, summary: b.summary,
+        source: b.source, sourceUrl: b.sourceUrl, date: b.date,
+        severity: b.severity, status: b.status
+      });
+    });
+    next.sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); });
 
-</div>
+    if (seenIds) next.forEach(function (i) { if (!seenIds[i.id]) freshIds[i.id] = true; });
+    seenIds = {};
+    next.forEach(function (i) { seenIds[i.id] = true; });
+
+    items = next;
+    render();
+  }
+
+  // Baked-in snapshot. Used when the shared database is not reachable —
+  // on a static host such as GitHub Pages, where window.claude is absent.
+  // Inside the shared artifact the live database replaces this at once.
+  var FALLBACK_ITEMS = [
+    { id: "ny-courts-2027", state: "New York", date: "2027-11-16", severity: "watch", status: "open", title: "Five million New York records become sealable by November 2027", summary: "The court system has until 16 November 2027 to seal every eligible record across 62 counties. Misdemeanours seal three years after sentencing or release, felonies after eight. Most Class A felonies and sex offences are excluded. This is the largest dated item on the feed.", source: "New York Unified Court System", sourceUrl: "https://www.nycourts.gov/criminal-history-record-search/new-york-states-clean-slate-act" },
+    { id: "va-dec-2026", state: "Virginia", date: "2026-12-01", severity: "soon", status: "open", title: "Virginia widens who can petition to expunge", summary: "The “otherwise dismissed” wording is repealed. More people who were arrested, charged or indicted for eligible offences can petition to clear the record. Petitions arrive one at a time, so this erodes the pool slowly rather than in one step.", source: "Clean Slate Initiative", sourceUrl: "https://www.cleanslateinitiative.org/updates/va-implementation" },
+    { id: "va-oct-2026", state: "Virginia", date: "2026-10-01", severity: "soon", status: "open", title: "Virginia adds five offence types to automatic sealing", summary: "Petit larceny, concealment, disorderly conduct, certain trespass offences and misdemeanour marijuana possession with intent to distribute all start sealing automatically. No petition is needed. This is the nearest dated change on the feed.", source: "Clean Slate Initiative", sourceUrl: "https://www.cleanslateinitiative.org/updates/va-implementation" },
+    { id: "va-jul-2026", state: "Virginia", date: "2026-07-01", severity: "now", status: "open", title: "Virginia began sealing conviction records", summary: "Virginia can seal conviction records for the first time in its history, and automatic sealing is running now. The start was pushed back a full year from 2025 so the courts and the state police could rebuild their systems.", source: "Clean Slate Initiative", sourceUrl: "https://www.cleanslateinitiative.org/updates/va-implementation" },
+    { id: "de-64k", state: "Delaware", date: "2026-06-01", severity: "watch", status: "open", title: "Delaware clears 64,000 cases after public pressure", summary: "The state announced 64,000 cases cleared, one month after the governor criticised the state police on air. It is still far short of the 594,000 cases the law was expected to reach.", source: "State of Delaware", sourceUrl: "https://news.delaware.gov/2026/06/01/governor-meyer-announces-64000-cases-cleared-in-clean-slate-automation/" },
+    { id: "mo-clean-slate", state: "Missouri", date: "2026-05-19", severity: "watch", status: "open", title: "Missouri becomes the fourteenth clean slate state", summary: "The legislature passed an automatic expungement bill. Passage alone costs us nothing. The effective date and the time the courts need to build the process are not settled, so no records have moved yet.", source: "Collateral Consequences Resource Center", sourceUrl: "https://ccresourcecenter.org/clean-slate-bill-passes-in-missouri/" },
+    { id: "va-sb230", state: "Virginia", date: "2026-05-14", severity: "now", status: "open", title: "Virginia signs SB230 and resets its sealing dates", summary: "Enacted as Chapter 1127, patron Senator Surovell, with a delayed effective date of 1 December 2026. It sets the schedule for Virginia's three sealing steps this year. We read it out of Virginia's own bill file the day it was signed.", source: "Virginia Legislative Information System", sourceUrl: "https://lis.virginia.gov/bill-details/20261/SB230" },
+    { id: "me-veto", state: "Maine", date: "2026-05-04", severity: "eased", status: "open", title: "Maine's governor vetoes the clean slate bill", summary: "The bill did not become law. Maine's records stay available to us. Keep this on the feed rather than closing it: a veto is often followed by an override vote or a fresh bill next session.", source: "Collateral Consequences Resource Center", sourceUrl: "https://ccresourcecenter.org/maine-governor-vetoes-clean-slate-bill/" },
+    { id: "de-stalled", state: "Delaware", date: "2026-05-04", severity: "watch", status: "open", title: "Delaware cleared 25,000 of an expected 594,000 cases", summary: "The law passed in 2021 and took effect in August 2024. Nearly two years on, the state police had not automated the process. Governor Meyer called the delay reprehensible on a live call-in show. A law on the books is not the same as records leaving the pool.", source: "WHYY", sourceUrl: "https://whyy.org/articles/delaware-governor-matt-meyer-state-police-clean-slate-act/" },
+    { id: "mi-1-6-million", state: "Michigan", date: "2026-04-16", severity: "now", status: "open", title: "Michigan has automatically expunged 1,578,501 convictions", summary: "State police data covering 11 April 2023 to April 2026. Misdemeanours clear seven years after conviction, felonies after ten. Michigan is four years in and is the best guide we have to where every other clean slate state ends up.", source: "Bridge Michigan", sourceUrl: "https://bridgemi.com/michigan-government/nearly-1-6m-criminal-records-cleared-under-michigan-clean-slate-law/" },
+    { id: "dc-jan-2026", state: "Washington DC", date: "2026-01-01", severity: "now", status: "open", title: "Washington DC started automatic expungement", summary: "The Second Chance Amendment Act took effect. Old cases must be expunged by 1 October 2027. New cases clear within 90 days. Scope covers decriminalised offences, marijuana possession before February 2015, non-conviction arrests, and misdemeanours ten years after completion.", source: "DC Code § 16-802", sourceUrl: "https://code.dccouncil.gov/us/dc/council/code/sections/16-802" },
+    { id: "il-broadest", state: "Illinois", date: "2025-11-06", severity: "now", status: "open", title: "Illinois enacts the broadest automatic sealing law in the country", summary: "Wider in scope than any law passed anywhere before it, which makes Illinois our largest single exposure on this feed. The Illinois legislature's own website did not answer our requests, so we track it through the Open States bulk database instead.", source: "Collateral Consequences Resource Center", sourceUrl: "https://ccresourcecenter.org/illinois-poised-to-enact-nations-broadest-automatic-sealing-law/" },
+    { id: "va-2025-chapters", state: "Virginia", date: "2025-04-02", severity: "watch", status: "open", title: "Two Virginia sealing laws passed while the state's own file said none did", summary: "HB2723 and SB1466 were enacted as Chapters 671 and 634. Virginia's summary file flags zero of 3,510 bills as approved for that session. We found these two by reading the action history instead. Never trust a legislature's status column.", source: "Virginia Legislative Information System", sourceUrl: "https://lis.virginia.gov/bill-details/20251/HB2723" }
+  ];
+
+  function useStatic() {
+    items = FALLBACK_ITEMS
+      .filter(function (i) { return safeUrl(i.sourceUrl); })
+      .slice()
+      .sort(function (a, b) { return String(b.date || "").localeCompare(String(a.date || "")); });
+    seenIds = {};
+    items.forEach(function (i) { seenIds[i.id] = true; });
+    render();
+  }
+
+  if (!window.claude || typeof window.claude.use !== "function") {
+    useStatic();
+    return;
+  }
+
+  window.claude.use("db").then(function (db) {
+    if (!db) { useStatic(); return; }
+    col = db.collection("items");
+    col.orderBy("date", "desc").limit(200).onSnapshot(absorb, function () { if (!items.length) useStatic(); });
+  }).catch(function () { useStatic(); });
+})();
+</script>
