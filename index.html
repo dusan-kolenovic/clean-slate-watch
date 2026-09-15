@@ -106,7 +106,7 @@ p{margin:0}
 /* ============================================================
    Filters
    ============================================================ */
-.filters{display:flex;flex-wrap:wrap;gap:10px;margin:40px 0 0;align-items:center}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin:40px 0 30px;align-items:center}
 .filters .label{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-faint);margin-right:8px}
 .chip{
   font-family:inherit;font-size:13px;font-weight:500;color:var(--text-body);
@@ -118,8 +118,6 @@ p{margin:0}
 .chip[aria-pressed="true"]{background:var(--coral);color:#fff;border-color:transparent}
 .chip.quiet[aria-pressed="true"]{background:var(--text-strong);color:var(--surface-card)}
 
-.tally{font-size:14px;color:var(--text-muted);margin:24px 0 18px}
-.tally b{color:var(--text-strong);font-weight:600}
 
 /* ============================================================
    Feed
@@ -209,8 +207,6 @@ p{margin:0}
 
   <div class="filters" id="urgencyFilters" role="group" aria-label="Filter by urgency"></div>
 
-  <p class="tally" id="tally"></p>
-
   <div id="feed">
     <div class="skel">
       <div class="bar" style="width:22%"></div>
@@ -235,7 +231,6 @@ p{margin:0}
 
   var el = {
     feed: document.getElementById("feed"),
-    tally: document.getElementById("tally"),
     filters: document.getElementById("urgencyFilters")
   };
 
@@ -294,12 +289,6 @@ p{margin:0}
   function render() {
     buildFilters();
     var list = visible();
-    var unread = items.filter(function (i) { return i.status !== "read"; }).length;
-
-    el.tally.innerHTML = items.length
-      ? "<b>" + items.length + "</b> development" + (items.length === 1 ? "" : "s") +
-        " tracked. <b>" + unread + "</b> unread."
-      : "";
 
     if (!items.length) {
       el.feed.innerHTML = '<div class="rest"><h2>Nothing yet</h2>' +
